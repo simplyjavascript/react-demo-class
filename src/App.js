@@ -5,6 +5,8 @@ import Cameras from "./components/Cameras";
 import Quotes from "./components/Quotes";
 import SearchBar from "./components/SearchBar";
 import ImageGallery from "./components/ImageGallery";
+import FAQ from "./components/FAQ";
+import Terms from "./components/TermsConditions";
 
 export default class App extends Component {
   state = {
@@ -80,6 +82,8 @@ export default class App extends Component {
           cameras={filteredResult}
         />
         <ImageGallery />
+        <FAQ />
+        <Terms />
       </div>
     );
   }
