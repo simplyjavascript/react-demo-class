@@ -11,7 +11,7 @@ export default class SearchBar extends Component {
         return { search: val };
       },
       () => {
-        this.props.cameraSearch(val);
+        this.props.onSearch(val);
       }
     );
   };

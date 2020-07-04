@@ -33,7 +33,6 @@ export default class ImageGallery extends Component {
   render() {
     return (
       <div className="gallery_wrapper">
-        <h3 className="gallery_header"> Gallery </h3>
         {this.state.isLoading ? (
           <Loading />
         ) : (

@@ -1,89 +1,78 @@
-import React, { Component } from "react";
+// React specific modules
+import React, { Component, lazy, Suspense } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+// My own components
 import Logo from "./components/Logo";
-import cameraDetails from "./data/camera_details";
-import Cameras from "./components/Cameras";
-import Quotes from "./components/Quotes";
-import SearchBar from "./components/SearchBar";
-import ImageGallery from "./components/ImageGallery";
-import FAQ from "./components/FAQ";
-import Terms from "./components/TermsConditions";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+// pages
+import Home from "./pages/Home";
+// import Contact from "./pages/Contact";
+// import Gallery from "./pages/Gallery";
+import AppContext from "./context/appContext";
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 export default class App extends Component {
-  state = {
-    iconClass: "fa fa-film fa-3x",
-    logoText: "Black & White Frames",
-    inputVal: "Testing",
-    cameras: cameraDetails,
-    selectedCamera: null,
-    filter: "",
-  };
+  constructor() {
+    super();
+    this.state = {
+      iconClass: "fa-film",
+      logoText: "Black & White Frames",
+    };
+  }
 
-  handleSearch = (val) => {
-    console.log("Searching for>>>", val);
-    this.setState(() => {
+  handleTheme = () => {
+    this.setState((state, props) => {
       return {
-        filter: val,
+        theme: state.theme === "light" ? "dark" : "light",
       };
     });
   };
-
-  handleCameraSelection = (item) => {
-    // console.log("Receving item from click>>>", item);
-    this.setState(() => {
-      return {
-        selectedCamera: item,
-      };
-    });
-  };
-
-  handleClick = () => {
-    // console.log("clicked the button");
-    this.setState(() => {
-      return {
-        iconClass: "fa fa-leaf fa-3x",
-        logoText: "Save our planet",
-      };
-    });
-  };
-  handleChange = (e) => {
-    const val = e.target.value;
-
-    this.setState(
-      (state, props) => {
-        return {
-          inputVal: val,
-        };
-      },
-      () => {
-        // console.log(this.state);
-      }
-    );
-  };
-
   render() {
-    const { selectedCamera, filter, cameras } = this.state;
-    const filteredResult = cameras.filter((c) =>
-      c.name.toLowerCase().includes(filter.toLowerCase())
-    );
-    // console.log("selectedCamera>>>>", selectedCamera);
+    const currentTheme =
+      this.state.theme === "light"
+        ? "header_wrapper appRoot"
+        : "header_wrapper appRoot dark";
+
     return (
-      <div>
-        <Logo data={this.state}>Green & White Frames</Logo>
-        <Quotes />
-        {selectedCamera ? (
-          <div className="selected_camera_wrapper">
-            <span> {selectedCamera.name} </span> /
-            <span> {selectedCamera.price} </span>
-          </div>
-        ) : null}
-        <SearchBar cameraSearch={this.handleSearch} />
-        <Cameras
-          cameraSelection={this.handleCameraSelection}
-          cameras={filteredResult}
-        />
-        <ImageGallery />
-        <FAQ />
-        <Terms />
+      <div className={currentTheme}>
+        <div className="container">
+          <BrowserRouter>
+            <Logo data={this.state}> Black & White Frames</Logo>
+            <Navbar />
+            <AppContext.Provider
+              value={{
+                theme: this.state.theme,
+                toggleTheme: this.handleTheme,
+              }}
+            >
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route
+                  path="/gallery"
+                  render={() => (
+                    <Suspense fallback={<h3> Loading Gallery..</h3>}>
+                      <Gallery />
+                    </Suspense>
+                  )}
+                />
+                <Route
+                  path="/contacts"
+                  render={() => (
+                    <Suspense fallback={<h3> Loading Contacts..</h3>}>
+                      <Contact />
+                    </Suspense>
+                  )}
+                />
+                {/* should come last */}
+                <Route render={() => <h1> Not found</h1>} />
+              </Switch>
+            </AppContext.Provider>
+          </BrowserRouter>
+        </div>
+        <Footer />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 
 import withToggle from "../shared/withToggle";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const FAQ = ({ isOpen, toggle }) => {
   const classes = isOpen ? "accordion_wrapper open" : "accordion_wrapper";
@@ -13,6 +14,7 @@ const FAQ = ({ isOpen, toggle }) => {
         <div className="accordion_content">
           Of course! You can. Drop me a mail and I will be happy to let you know
           the details.
+          <ThemeSwitcher />
         </div>
       )}
     </div>
