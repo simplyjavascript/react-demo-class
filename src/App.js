@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 // import Contact from "./pages/Contact";
 // import Gallery from "./pages/Gallery";
 import AppContext from "./context/appContext";
+import GalleryItem from "./pages/GalleryItem";
 const Gallery = lazy(() => import("./pages/Gallery"));
 const Contact = lazy(() => import("./pages/Contact"));
 
@@ -20,8 +21,15 @@ export default class App extends Component {
     this.state = {
       iconClass: "fa-film",
       logoText: "Black & White Frames",
+      images: {},
     };
   }
+
+  setImages = (item) => {
+    this.setState({
+      images: item,
+    });
+  };
 
   handleTheme = () => {
     this.setState((state, props) => {
@@ -46,10 +54,20 @@ export default class App extends Component {
               value={{
                 theme: this.state.theme,
                 toggleTheme: this.handleTheme,
+                images: this.state.images,
+                setImages: this.setImages,
               }}
             >
               <Switch>
                 <Route path="/" exact component={Home} />
+                <Route
+                  path="/gallery/:id"
+                  render={() => (
+                    <Suspense fallback={<h3> Loading..</h3>}>
+                      <GalleryItem />
+                    </Suspense>
+                  )}
+                />
                 <Route
                   path="/gallery"
                   render={() => (
