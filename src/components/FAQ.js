@@ -1,9 +1,8 @@
 import React from "react";
+import useToggle from "../custom-hooks/useToggle";
 
-import withToggle from "../shared/withToggle";
-import ThemeSwitcher from "./ThemeSwitcher";
-
-const FAQ = ({ isOpen, toggle }) => {
+const FAQ = () => {
+  const { isOpen, toggle } = useToggle(false);
   const classes = isOpen ? "accordion_wrapper open" : "accordion_wrapper";
   return (
     <div className={classes}>
@@ -14,10 +13,10 @@ const FAQ = ({ isOpen, toggle }) => {
         <div className="accordion_content">
           Of course! You can. Drop me a mail and I will be happy to let you know
           the details.
-          <ThemeSwitcher />
         </div>
       )}
     </div>
   );
 };
-export default withToggle(FAQ);
+
+export default FAQ;
