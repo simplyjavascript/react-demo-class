@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 // false
 const useToggle = (currentHoverFlag) => {
   //false
@@ -8,6 +8,7 @@ const useToggle = (currentHoverFlag) => {
   }, [currentHoverFlag]); //false
   return {
     isOpen: isOpen,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     toggle: useCallback(() => setIsOpen((status) => !status)),
   };
 };
