@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import AppContext from "../context/appContext";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const appCtx = useContext(AppContext);
   const { toggleTheme, theme } = appCtx;

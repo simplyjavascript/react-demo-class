@@ -5,7 +5,7 @@ const SearchBar = (props) => {
 
   useEffect(() => {
     props.onSearch(search);
-  }, [search]);
+  }, [search, props]);
 
   return (
     <form>

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 // false
 const useHover = (currentHoverFlag) => {
   //false
-  const [hovering, setHovering] = React.useState(false);
+  const [hovering, setHovering] = useState(false);
   useEffect(() => {
     setHovering(currentHoverFlag);
   }, [currentHoverFlag]); //false

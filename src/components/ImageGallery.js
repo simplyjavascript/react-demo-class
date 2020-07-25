@@ -1,15 +1,15 @@
-import React, { useState, useReducer, useEffect } from "react";
-import axios from "../utils/axios-unsplash";
+import React, { useState } from "react";
+
 import Loading from "./Loading";
-import Hover from "../shared/Hover";
-import { Link, withRouter } from "react-router-dom";
-import AppCtx from "../context/appContext";
+
+import { withRouter } from "react-router-dom";
+
 import Tooltip from "../shared/Tooltip";
 import useFetch from "../custom-hooks/useFetch";
 
 const ImageGallery = () => {
   const [search, setSearch] = useState("mobiles");
-  const { data, loading, error, state } = useFetch(search); // Hey i need the data for all cars
+  const { error, state } = useFetch(search); // Hey i need the data for all cars
   if (error) {
     return <h1>OOps...something didnt load.. try again</h1>;
   }

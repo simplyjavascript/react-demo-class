@@ -6,7 +6,7 @@ import Cameras from "../components/Cameras";
 import cameraDetails from "../data/camera_details";
 
 const Home = () => {
-  const [cameras, setCameras] = useState(cameraDetails);
+  const [cameras] = useState(cameraDetails);
   const [selectedCamera, setSelectedCamera] = useState(null);
   const [filter, setFilter] = useState("");
 

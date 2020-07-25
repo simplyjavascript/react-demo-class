@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer } from "react";
 import axios from "../utils/axios-unsplash";
 
 const INITIAL_STATE = {
@@ -61,7 +61,7 @@ const useFetch = (search) => {
         results: data,
       },
     });
-  }, [data]);
+  }, [data, search]);
 
   useEffect(() => {
     dispatch({
@@ -90,7 +90,7 @@ const useFetch = (search) => {
       }
     };
     fetchUnsplashData();
-  }, [search]);
+  }, [search, searched]);
 
   return {
     data,

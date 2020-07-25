@@ -1,7 +1,7 @@
 import React from "react";
 
 const Logo = (props) => {
-  const { iconClass, logoText } = props.data;
+  const { iconClass } = props.data;
   return (
     <div>
       <div className="header_logo">
